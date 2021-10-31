@@ -9,6 +9,7 @@
     <div v-show="showAddTask">
       <AddTask @add-task="addTask" />
     </div>
+    <hr />
     <Tasks
       @toggle-reminder="toggleReminder"
       :tasks="tasks"
@@ -91,6 +92,7 @@ export default {
 
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: beige;
 }
 
 .container {
@@ -99,6 +101,7 @@ body {
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
+  background-color: white;
   padding: 30px;
   border-radius: 5px;
 }

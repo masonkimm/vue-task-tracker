@@ -10,7 +10,7 @@
         type="text"
         v-model="day"
         name="day"
-        placeholder="Add Day & Time"
+        placeholder="Add Day & Time..."
       />
     </div>
     <input type="submit" value="Save Task" class="btn btn-block" />
