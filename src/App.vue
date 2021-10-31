@@ -44,7 +44,11 @@ export default {
     },
     getTasks() {
       const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-      return storedTasks;
+      if (storedTasks !== null) {
+        this.tasks = storedTasks;
+      }
+      // this.tasks = [...this.tasks, storedTasks];
+      // this.tasks.push(storedTasks);
     },
     addTask(task) {
       const newTask = (this.tasks = [...this.tasks, task]);
@@ -66,28 +70,12 @@ export default {
       this.showAddTask = !this.showAddTask;
     },
   },
+  beforeMount() {
+    this.getTasks();
+  },
   created() {
-    this.tasks = this.getTasks();
-    // this.tasks = [
-    //   {
-    //     id: '1',
-    //     text: 'Doctors Appointment',
-    //     day: 'March 5th at 2:30pm',
-    //     reminder: true,
-    //   },
-    //   {
-    //     id: '2',
-    //     text: 'Meeting with boss',
-    //     day: 'March 6th at 1:30pm',
-    //     reminder: true,
-    //   },
-    //   {
-    //     id: '3',
-    //     text: 'Food shopping',
-    //     day: 'March 7th at 2:00pm',
-    //     reminder: false,
-    //   },
-    // ];
+    // this.tasks = this.getTasks();
+    this.tasks = [];
   },
 };
 </script>
