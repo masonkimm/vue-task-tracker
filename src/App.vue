@@ -36,12 +36,22 @@ export default {
     };
   },
   methods: {
+    storeTasks(tasks) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    },
+    getTasks() {
+      const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+      return storedTasks;
+    },
     addTask(task) {
-      this.tasks = [...this.tasks, task];
+      const newTask = (this.tasks = [...this.tasks, task]);
+      this.storeTasks(newTask);
     },
     deleteTask(id) {
-      console.log('task', id);
-      this.tasks = this.tasks.filter((task) => task.id !== id);
+      const filteredTasks = (this.tasks = this.tasks.filter(
+        (task) => task.id !== id
+      ));
+      this.storeTasks(filteredTasks);
     },
     toggleReminder(id) {
       this.tasks = this.tasks.map((task) =>
@@ -53,26 +63,27 @@ export default {
     },
   },
   created() {
-    this.tasks = [
-      {
-        id: '1',
-        text: 'Doctors Appointment',
-        day: 'March 5th at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: '2',
-        text: 'Meeting with boss',
-        day: 'March 6th at 1:30pm',
-        reminder: true,
-      },
-      {
-        id: '3',
-        text: 'Food shopping',
-        day: 'March 7th at 2:00pm',
-        reminder: false,
-      },
-    ];
+    this.tasks = this.getTasks();
+    // this.tasks = [
+    //   {
+    //     id: '1',
+    //     text: 'Doctors Appointment',
+    //     day: 'March 5th at 2:30pm',
+    //     reminder: true,
+    //   },
+    //   {
+    //     id: '2',
+    //     text: 'Meeting with boss',
+    //     day: 'March 6th at 1:30pm',
+    //     reminder: true,
+    //   },
+    //   {
+    //     id: '3',
+    //     text: 'Food shopping',
+    //     day: 'March 7th at 2:00pm',
+    //     reminder: false,
+    //   },
+    // ];
   },
 };
 </script>
