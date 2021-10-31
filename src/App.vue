@@ -14,6 +14,7 @@
       :tasks="tasks"
       @delete-task="deleteTask"
     />
+    <Footer />
   </div>
 </template>
 
@@ -21,6 +22,7 @@
 import Heading from './components/Heading.vue';
 import Tasks from './components/Tasks.vue';
 import AddTask from './components/AddTask.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
@@ -28,6 +30,7 @@ export default {
     Heading,
     Tasks,
     AddTask,
+    Footer,
   },
   data() {
     return {
@@ -54,9 +57,10 @@ export default {
       this.storeTasks(filteredTasks);
     },
     toggleReminder(id) {
-      this.tasks = this.tasks.map((task) =>
+      const toggledTasks = (this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
-      );
+      ));
+      this.storeTasks(toggledTasks);
     },
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;

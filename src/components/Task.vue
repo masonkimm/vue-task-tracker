@@ -1,11 +1,17 @@
 <template>
-  <div
-    @dblclick="$emit('toggle-reminder', task.id)"
-    class="task"
-    :class="[task.reminder ? 'reminder' : '', 'task']"
-  >
+  <div class="task" :class="[task.reminder ? 'reminder' : '', 'task']">
     <h3>
-      {{ task.text }}
+      <div class="task-leftSide">
+        <input
+          type="checkbox"
+          class="task-checkbox"
+          @click="$emit('toggle-reminder', task.id)"
+          :checked="task.reminder ? true : null"
+        />
+        <p :class="task.reminder ? 'line-through' : ''" id="task-text">
+          {{ task.text }}
+        </p>
+      </div>
       <i @click="onDelete(task.id)" class="fas fa-times"></i>
     </h3>
     <p>{{ task.day }}</p>
@@ -38,7 +44,20 @@ export default {
   padding: 10px 20px;
   cursor: pointer;
 }
-
+.line-through {
+  text-decoration: line-through;
+  color: gray;
+}
+.task-leftSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.task-checkbox {
+  margin-right: 10px;
+  transform: scale(1.3);
+  cursor: pointer;
+}
 .task.reminder {
   border-left: 5px solid green;
 }
