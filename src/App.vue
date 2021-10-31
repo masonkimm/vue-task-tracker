@@ -2,7 +2,11 @@
   <img id="vue-logo" alt="Vue logo" src="./assets/logo.png" />
   <div class="container">
     <Heading title="Task Tracker" />
-    <Tasks :tasks="tasks" @delete-task="deleteTask" />
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      :tasks="tasks"
+      @delete-task="deleteTask"
+    />
   </div>
 </template>
 
@@ -25,6 +29,11 @@ export default {
     deleteTask(id) {
       console.log('task', id);
       this.tasks = this.tasks.filter((task) => task.id !== id);
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
   },
   created() {
