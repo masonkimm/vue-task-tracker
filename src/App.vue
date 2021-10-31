@@ -1,7 +1,14 @@
 <template>
   <img id="vue-logo" alt="Vue logo" src="./assets/logo.png" />
   <div class="container">
-    <Heading title="Task Tracker" />
+    <Heading
+      :showAddTask="showAddTask"
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
+    />
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask" />
+    </div>
     <Tasks
       @toggle-reminder="toggleReminder"
       :tasks="tasks"
@@ -13,19 +20,25 @@
 <script>
 import Heading from './components/Heading.vue';
 import Tasks from './components/Tasks.vue';
+import AddTask from './components/AddTask.vue';
 
 export default {
   name: 'App',
   components: {
     Heading,
     Tasks,
+    AddTask,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       console.log('task', id);
       this.tasks = this.tasks.filter((task) => task.id !== id);
@@ -34,6 +47,9 @@ export default {
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
+    },
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
     },
   },
   created() {
