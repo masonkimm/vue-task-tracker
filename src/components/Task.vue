@@ -6,7 +6,7 @@
           type="checkbox"
           class="task-checkbox"
           @click="$emit('toggle-reminder', task.id)"
-          :checked="task.reminder ? true : null"
+          :checked="task.reminder ? true : false"
         />
         <p :class="task.reminder ? 'line-through' : ''" id="task-text">
           {{ task.text }}
